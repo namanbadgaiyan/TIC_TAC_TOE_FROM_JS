@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TIC-TAC-TOE</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-300">
+    <div class="main mt-[8vw] flex items-center justify-center text-center flex-col text-[4vw] font-bold font-[gilroy] gap-10">
+        <div class="heading">
+            <h1>Tic Tac Toe</h1>
+        </div>
+        <div id="board" class="grid grid-cols-3 m-auto justify-center gap-1">
+            <!-- <div class="row"> -->
+            <div class="cell w-[100px] h-[100px] flex items-center justify-center border-[1px] border-black rounded-md font-bold hover:bg-slate-400 hover:cursor-pointer text-[3vw]" onclick="move(0,0)"></div>
+            <div class="cell w-[100px] h-[100px] flex items-center justify-center border-[1px] border-black rounded-md font-bold hover:bg-slate-400 hover:cursor-pointer text-[3vw]" onclick="move(0,1)"></div>
+            <div class="cell w-[100px] h-[100px] flex items-center justify-center border-[1px] border-black rounded-md font-bold hover:bg-slate-400 hover:cursor-pointer text-[3vw]" onclick="move(0,2)"></div>
+            <!-- </div> -->
+            <!-- <div class="row"> -->
+            <div class="cell w-[100px] h-[100px] flex items-center justify-center border-[1px] border-black rounded-md font-bold hover:bg-slate-400 hover:cursor-pointer text-[3vw]" onclick="move(1,0)"></div>
+            <div class="cell w-[100px] h-[100px] flex items-center justify-center border-[1px] border-black rounded-md font-bold hover:bg-slate-400 hover:cursor-pointer text-[3vw]" onclick="move(1,1)"></div>
+            <div class="cell w-[100px] h-[100px] flex items-center justify-center border-[1px] border-black rounded-md font-bold hover:bg-slate-400 hover:cursor-pointer text-[3vw]" onclick="move(1,2)"></div>
+            <!-- </div> -->
+            <!-- <div class="row"> -->
+            <div class="cell w-[100px] h-[100px] flex items-center justify-center border-[1px] border-black rounded-md font-bold hover:bg-slate-400 hover:cursor-pointer text-[3vw]" onclick="move(2,0)"></div>
+            <div class="cell w-[100px] h-[100px] flex items-center justify-center border-[1px] border-black rounded-md font-bold hover:bg-slate-400 hover:cursor-pointer text-[3vw]" onclick="move(2,1)"></div>
+            <div class="cell w-[100px] h-[100px] flex items-center justify-center border-[1px] border-black rounded-md font-bold hover:bg-slate-400 hover:cursor-pointer text-[3vw]" onclick="move(2,2)"></div>
+            <!-- </div> -->
+        </div>
+    </div>
+    <script>
+        const boards = document.getElementById("board");
+        let cell = document.getElementsByClassName("cell");
+        let currPlayer = "X";
+
+        let board = [
+            ["", "", ""],
+            ["", "", ""],
+            ["", "", ""],
+            ];
+
+        function move(row, col) {
+        if (board[row][col] === "") {
+            board[row][col] = currPlayer;
+            boards.children[row * 3 + col].innerHTML = currPlayer;
+                if (checkWinner() == true) {
+                    setTimeout(() => {
+                        alert( currPlayer , "is Winner");
+                        resetBoard();
+                    }, 10);
+                    return;
+                }
+                if (checkTie() == true) {
+                    setTimeout(() => {
+                        alert("No Winner Tie !!");
+                        resetBoard();
+                    }, 0);
+                    return;
+                }
+
+                if (currPlayer == "X") {
+                    currPlayer = "O";
+                } else {
+                    currPlayer = "X";
+                }
+            }
+        }
+
+        function checkWinner() {
+        for (let i = 0; i < 3; i++) {
+            if (
+            board[i][0] == board[i][1] &&
+            board[i][1] == board[i][2] &&
+            board[i][0] == currPlayer
+            ) {
+            return true;
+            }
+        }
+        for (let i = 0; i < 3; i++) {
+            if (
+            board[0][i] == board[1][i] &&
+            board[1][i] == board[2][i] &&
+            board[0][i] == currPlayer
+            ) {
+            return true;
+            }
+        }
+        if (
+            board[0][0] == board[1][1] &&
+            board[1][1] == board[2][2] &&
+            board[0][0] == currPlayer
+        ) {
+            return true;
+        }
+        if (
+            board[0][2] == board[1][1] &&
+            board[1][1] == board[2][0] &&
+            board[0][2] == currPlayer
+        ) {
+            return true;
+        }
+        }
+        function checkTie() {
+        for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < 3; j++) {
+            if (board[i][j] == "") {
+                return false;
+            }
+            }
+        }
+        return true;
+        }
+        function resetBoard() {
+        board = [
+            ["", "", ""],
+            ["", "", ""],
+            ["", "", ""],
+        ];
+
+        for (let i = 0; i < 9; i++) {
+            cell[i].innerHTML = "";
+        }
+        currPlayer = "X";
+        }
+
+    </script>
+</body>
+</html>
